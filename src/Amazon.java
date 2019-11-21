@@ -27,9 +27,8 @@ public class Amazon {
         WebElement cajaBusqueda = driver.findElement(By.xpath("//*[@id=\"twotabsearchtextbox\"]"));
         //el sendKey va a venir del parametro de la interfaz en el imput
         cajaBusqueda.sendKeys("Mobil"+ Keys.ENTER);
-        //hay que tomar bien los elementos que no esta correcto
         List<WebElement> listaElementos =
-                driver.findElements(By.xpath("//*[contains(@class, 'tarjeta-articulo expandible')]"));
+                driver.findElements(By.xpath("//*[contains(@class, 'sg-col-20-of-24 s-result-item sg-col-0-of-12 sg-col-28-of-32 sg-col-16-of-20 sg-col sg-col-32-of-36 sg-col-12-of-16 sg-col-24-of-28')]"));
         System.out.println("Numero de elementos de la lista: " + listaElementos.size());
 
         //hace falta añadir el filtro por marca e tipo de articulo y obtener los datos
