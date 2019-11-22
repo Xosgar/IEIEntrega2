@@ -22,18 +22,21 @@ public class PCComponet {
          System.setProperty("webdriver.chrome.driver", exePath);
          ChromeOptions options = new ChromeOptions();
          options.addArguments("--start-maximized");
+         //Add chrome switch to disable notification - "**--disable-notifications**"
+         options.addArguments("--disable-notifications");
          driver = new ChromeDriver(options);
          driver.get("http://www.pccomponentes.com");
+         waitForPageLoaded();
 
-         /*WebElement ventanaCookies = driver.findElement(By.xpath("/html/body/div[5]/div/div/div[2]/button"));
-         if(ventanaCookies != null){
-             ventanaCookies.click();
-         }*/
+         /*WebElement ventanaCookies = driver.findElement(By.xpath("/html/body/div[6]"));
+         ventanaCookies.findElement(By.xpath("/html/body/div[5]/div/div/div[2]/button")).click();*/
+
+         //WebElement ventanaSubscripcion = driver.findElement(By.linkText("/html/body/div[5]/div/div/div[2]/button"));
 
          WebElement cajaBusqueda = driver.findElement(By.xpath("/html/body/header/div[3]/div[1]/div/div[2]/div/form/input"));
-         //el sendKey va a venir del parametro de la interfaz en el imput
-                cajaBusqueda.sendKeys("Mobil"+ Keys.ENTER);
-                //cajaBusqueda.sendKeys(Keys.ENTER);
+         //el sendKeys va a venir del parametro de la interfaz en el input
+                cajaBusqueda.sendKeys("Movil"+ Keys.ENTER);
+                cajaBusqueda.sendKeys(Keys.ENTER);
       /*   WebDriverWait waiting ;
          waiting= new WebDriverWait(driver, 10);
          waiting.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("div.acc-block-title:nth-child(9) > a:nth-child(1)")));
@@ -76,8 +79,23 @@ public class PCComponet {
 
          System.out.println(listaElementos.size());
 
-           // Hay que buscar la forma de cerrar las cookies y la pestaña de suscripcion que aparece y la de blockear notificaciones
+           // Hay que buscar la forma de cerrar las cookies y la pestaña de suscripcion que aparece
 
+     }
+
+    public static void waitForPageLoaded() {
+        ExpectedCondition<Boolean> expectation = new ExpectedCondition<Boolean>() {
+                    public Boolean apply(WebDriver driver) {
+                        return ((JavascriptExecutor) driver).executeScript("return document.readyState").toString().equals("complete");
+                    }
+        };
+        try {
+            Thread.sleep(1000);
+            WebDriverWait wait = new WebDriverWait(driver, 30);
+            wait.until(expectation);
+        } catch (Throwable error) {
+            System.out.println("Timeout waiting for Page Load Request to complete.");
+        }
      }
 
 }
