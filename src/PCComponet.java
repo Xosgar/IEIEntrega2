@@ -147,11 +147,6 @@ public class PCComponet {
 
                  System.out.println(movilActual.toString());
              }
-
-
-
-
-
              j++;
          }
 
