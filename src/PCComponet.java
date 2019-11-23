@@ -87,7 +87,7 @@ public class PCComponet {
          System.out.println(listaElementos.size());
 */
            // Hay que buscar la forma de cerrar las cookies y la pestaña de suscripcion que aparece y la de blockear notificaciones
-         WebElement elementoActual, nombreProducto, precio,descuento,imagen,categoria;
+         WebElement elementoActual, nombreProducto, precio,descuento,imagen,categoria,marca;
          int j=1;
          for (int i=0; i<listaElementos.size(); i++)
          {
@@ -118,6 +118,9 @@ public class PCComponet {
 
              categoria = elementoActual.findElement(By.xpath("/html/body/div[1]/div[2]/div/div/div[2]/div[2]/div[3]/div[1]/div["+j+"]/article")) ;
              System.out.println(j+" Categoria: "+ categoria.getAttribute("data-category"));
+
+             marca = elementoActual.findElement(By.xpath("/html/body/div[1]/div[2]/div/div/div[2]/div[2]/div[3]/div[1]/div["+j+"]/article/div[1]/a"));
+             System.out.println(j+" Marca: "+marca.getAttribute("data-brand"));
              j++;
          }
 
