@@ -22,8 +22,12 @@ public class PCComponet {
          System.setProperty("webdriver.chrome.driver", exePath);
          ChromeOptions options = new ChromeOptions();
          options.addArguments("--start-maximized");
+         //Add chrome switch to disable notification - "**--disable-notifications**"
+         options.addArguments("--disable-notifications");
          driver = new ChromeDriver(options);
          driver.get("http://www.pccomponentes.com");
+         waitForPageLoaded();
+
 
 
         /* WebDriverWait waiting = new WebDriverWait(driver, 10);
@@ -34,6 +38,7 @@ public class PCComponet {
          ventanaCookies.findElement(By.className("btn btn-block btn-primary  btn-lg m-t-1 accept-cookie")).click();
 */
          WebElement cajaBusqueda = driver.findElement(By.xpath("/html/body/header/div[3]/div[1]/div/div[2]/div/form/input"));
+
          //el sendKey va a venir del parametro de la interfaz en el imput
                 cajaBusqueda.sendKeys(nombre+ Keys.ENTER);
                 //cajaBusqueda.sendKeys(Keys.ENTER);
@@ -115,6 +120,25 @@ public class PCComponet {
              System.out.println(j+" Categoria: "+ categoria.getAttribute("data-category"));
              j++;
          }
+
+
+           // Hay que buscar la forma de cerrar las cookies y la pestaña de suscripcion que aparece
+
+     }
+
+    public static void waitForPageLoaded() {
+        ExpectedCondition<Boolean> expectation = new ExpectedCondition<Boolean>() {
+                    public Boolean apply(WebDriver driver) {
+                        return ((JavascriptExecutor) driver).executeScript("return document.readyState").toString().equals("complete");
+                    }
+        };
+        try {
+            Thread.sleep(1000);
+            WebDriverWait wait = new WebDriverWait(driver, 30);
+            wait.until(expectation);
+        } catch (Throwable error) {
+            System.out.println("Timeout waiting for Page Load Request to complete.");
+        }
      }
 
 }
