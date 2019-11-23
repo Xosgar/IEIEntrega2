@@ -1,3 +1,4 @@
+import modelos.Movil;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -88,39 +89,69 @@ public class PCComponet {
 */
            // Hay que buscar la forma de cerrar las cookies y la pestaña de suscripcion que aparece y la de blockear notificaciones
          WebElement elementoActual, nombreProducto, precio,descuento,imagen,categoria,marca;
+         String nombreP,precioP,descuentoP,imagenP,categoriaP,marcaP;
          int j=1;
          for (int i=0; i<listaElementos.size(); i++)
          {
              elementoActual = listaElementos.get(i);
-             nombreProducto =
-                     elementoActual.
-                 findElement(By.xpath("/html/body/div[1]/div[2]/div/div/div[2]/div[2]/div[3]/div[1]/div["+ j
-                 + "]/article/div[1]/header/h3/a"));
-             System.out.println(j + " " + nombreProducto.getText());
-             precio = elementoActual.
-                     findElement(By.xpath("/html/body/div[1]/div[2]/div/div/div[2]/div[2]/div[3]/div[1]/div["+ j
-                 + "]/article/div[1]/div[2]/div[1]"));
-             System.out.println(j + " Precio Actual: " + precio.getText());
              try {
                  descuento = elementoActual.
                          findElement(By.xpath("/html/body/div[1]/div[2]/div/div/div[2]/div[2]/div[3]/div[1]/div["+ j
                                  +"]/article/div[1]/div[2]/div[2]/div[1]"));
-                 if (descuento!= null) {
-                     System.out.println(j + " PrecioAntes del descuento: " + descuento.getText());
-                 }
+                 descuentoP = descuento.getText();
+                 nombreProducto =
+                         elementoActual.
+                                 findElement(By.xpath("/html/body/div[1]/div[2]/div/div/div[2]/div[2]/div[3]/div[1]/div["+ j
+                                         + "]/article/div[1]/header/h3/a"));
+                 nombreP= nombreProducto.getText();
+                 precio = elementoActual.
+                         findElement(By.xpath("/html/body/div[1]/div[2]/div/div/div[2]/div[2]/div[3]/div[1]/div["+ j
+                                 + "]/article/div[1]/div[2]/div[1]"));
+                 precioP = precio.getText();
 
+                 imagen = elementoActual
+                         .findElement(By.xpath("/html/body/div[1]/div[2]/div/div/div[2]/div[2]/div[3]/div[1]/div["+j+"]/article/div[1]/div[1]/img"));
+                 imagenP = imagen.getAttribute("src");
+
+                 categoria = elementoActual.findElement(By.xpath("/html/body/div[1]/div[2]/div/div/div[2]/div[2]/div[3]/div[1]/div["+j+"]/article")) ;
+                 categoriaP= categoria.getAttribute("data-category");
+
+                 marca = elementoActual.findElement(By.xpath("/html/body/div[1]/div[2]/div/div/div[2]/div[2]/div[3]/div[1]/div["+j+"]/article/div[1]/a"));
+                 marcaP = marca.getAttribute("data-brand");
+
+                 Movil movilActual = new Movil(nombreP,precioP,descuentoP,imagenP,marcaP);
+
+                 System.out.println(movilActual.toString());
              }catch (Exception err){
-                 System.out.println("No tiene descuento");
+                 nombreProducto =
+                         elementoActual.
+                                 findElement(By.xpath("/html/body/div[1]/div[2]/div/div/div[2]/div[2]/div[3]/div[1]/div["+ j
+                                         + "]/article/div[1]/header/h3/a"));
+                 nombreP= nombreProducto.getText();
+                 precio = elementoActual.
+                         findElement(By.xpath("/html/body/div[1]/div[2]/div/div/div[2]/div[2]/div[3]/div[1]/div["+ j
+                                 + "]/article/div[1]/div[2]/div[1]"));
+                 precioP = precio.getText();
+
+                 imagen = elementoActual
+                         .findElement(By.xpath("/html/body/div[1]/div[2]/div/div/div[2]/div[2]/div[3]/div[1]/div["+j+"]/article/div[1]/div[1]/img"));
+                 imagenP = imagen.getAttribute("src");
+
+                 categoria = elementoActual.findElement(By.xpath("/html/body/div[1]/div[2]/div/div/div[2]/div[2]/div[3]/div[1]/div["+j+"]/article")) ;
+                 categoriaP= categoria.getAttribute("data-category");
+
+                 marca = elementoActual.findElement(By.xpath("/html/body/div[1]/div[2]/div/div/div[2]/div[2]/div[3]/div[1]/div["+j+"]/article/div[1]/a"));
+                 marcaP = marca.getAttribute("data-brand");
+
+                 Movil movilActual = new Movil(nombreP,precioP,imagenP,marcaP);
+
+                 System.out.println(movilActual.toString());
              }
-             imagen = elementoActual
-                     .findElement(By.xpath("/html/body/div[1]/div[2]/div/div/div[2]/div[2]/div[3]/div[1]/div["+j+"]/article/div[1]/div[1]/img"));
-             System.out.println(j+"Url Imagen: "+imagen.getAttribute("src"));
 
-             categoria = elementoActual.findElement(By.xpath("/html/body/div[1]/div[2]/div/div/div[2]/div[2]/div[3]/div[1]/div["+j+"]/article")) ;
-             System.out.println(j+" Categoria: "+ categoria.getAttribute("data-category"));
 
-             marca = elementoActual.findElement(By.xpath("/html/body/div[1]/div[2]/div/div/div[2]/div[2]/div[3]/div[1]/div["+j+"]/article/div[1]/a"));
-             System.out.println(j+" Marca: "+marca.getAttribute("data-brand"));
+
+
+
              j++;
          }
 

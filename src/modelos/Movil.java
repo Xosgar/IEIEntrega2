@@ -78,4 +78,15 @@ public class Movil {
     public int hashCode() {
         return Objects.hash(getNombre(), getMarca());
     }
+
+    @Override
+    public String toString() {
+        return "Movil{" +
+                "nombre='" + nombre + '\'' +
+                ", precioActual='" + precioActual + '\'' +
+                ", precioAntesDescuento='" + precioAntesDescuento + '\'' +
+                ", urlImagen='" + urlImagen + '\'' +
+                ", marca='" + marca + '\'' +
+                '}';
+    }
 }
