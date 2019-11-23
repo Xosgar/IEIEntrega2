@@ -11,13 +11,13 @@ import java.util.Set;
 public class PCComponet {
 
      public static void main(String[] args) {
-        Chrome();
+        Chrome("Iphone");
     }
 
     private static WebDriver driver= null;
 
 
-     public static void Chrome(){
+     public static void Chrome(String nombre){
          String exePath = "chromedriver/chromedriver.exe";
          System.setProperty("webdriver.chrome.driver", exePath);
          ChromeOptions options = new ChromeOptions();
@@ -25,14 +25,17 @@ public class PCComponet {
          driver = new ChromeDriver(options);
          driver.get("http://www.pccomponentes.com");
 
-         /*WebElement ventanaCookies = driver.findElement(By.xpath("/html/body/div[5]/div/div/div[2]/button"));
-         if(ventanaCookies != null){
-             ventanaCookies.click();
-         }*/
 
+        /* WebDriverWait waiting = new WebDriverWait(driver, 10);
+         waiting.until( ExpectedConditions
+                 .presenceOfElementLocated( By.className("notification-cookies")));
+
+         WebElement ventanaCookies = driver.findElement(By.className("notification-cookies"));
+         ventanaCookies.findElement(By.className("btn btn-block btn-primary  btn-lg m-t-1 accept-cookie")).click();
+*/
          WebElement cajaBusqueda = driver.findElement(By.xpath("/html/body/header/div[3]/div[1]/div/div[2]/div/form/input"));
          //el sendKey va a venir del parametro de la interfaz en el imput
-                cajaBusqueda.sendKeys("Mobil"+ Keys.ENTER);
+                cajaBusqueda.sendKeys(nombre+ Keys.ENTER);
                 //cajaBusqueda.sendKeys(Keys.ENTER);
       /*   WebDriverWait waiting ;
          waiting= new WebDriverWait(driver, 10);
@@ -61,11 +64,13 @@ public class PCComponet {
 //Once all your stuff done with this frame need to switch back to default
          driver.switchTo().defaultContent();
 */
+
+     // /html/body/div/a/svg
          List<WebElement> listaElementos =
-                 driver.findElements(By.xpath("//*[contains(@class, 'tarjeta-articulo expandible')]"));
+                 driver.findElements(By.xpath("//*[contains(@class, 'col-xs-6 col-sm-4 col-md-4 col-lg-4')]"));
          System.out.println("Numero de elementos de la lista: " + listaElementos.size());
 
-         WebElement masElementos =
+       /*  WebElement masElementos =
                  driver.findElement(By.xpath("//*[@id=\"btnMore\"]"));
          masElementos.click();
 
@@ -75,9 +80,41 @@ public class PCComponet {
          listaElementos.addAll(nuevaLista);
 
          System.out.println(listaElementos.size());
-
+*/
            // Hay que buscar la forma de cerrar las cookies y la pestaña de suscripcion que aparece y la de blockear notificaciones
+         WebElement elementoActual, nombreProducto, precio,descuento,imagen,categoria;
+         int j=1;
+         for (int i=0; i<listaElementos.size(); i++)
+         {
+             elementoActual = listaElementos.get(i);
+             nombreProducto =
+                     elementoActual.
+                 findElement(By.xpath("/html/body/div[1]/div[2]/div/div/div[2]/div[2]/div[3]/div[1]/div["+ j
+                 + "]/article/div[1]/header/h3/a"));
+             System.out.println(j + " " + nombreProducto.getText());
+             precio = elementoActual.
+                     findElement(By.xpath("/html/body/div[1]/div[2]/div/div/div[2]/div[2]/div[3]/div[1]/div["+ j
+                 + "]/article/div[1]/div[2]/div[1]"));
+             System.out.println(j + " Precio Actual: " + precio.getText());
+             try {
+                 descuento = elementoActual.
+                         findElement(By.xpath("/html/body/div[1]/div[2]/div/div/div[2]/div[2]/div[3]/div[1]/div["+ j
+                                 +"]/article/div[1]/div[2]/div[2]/div[1]"));
+                 if (descuento!= null) {
+                     System.out.println(j + " PrecioAntes del descuento: " + descuento.getText());
+                 }
 
+             }catch (Exception err){
+                 System.out.println("No tiene descuento");
+             }
+             imagen = elementoActual
+                     .findElement(By.xpath("/html/body/div[1]/div[2]/div/div/div[2]/div[2]/div[3]/div[1]/div["+j+"]/article/div[1]/div[1]/img"));
+             System.out.println(j+"Url Imagen: "+imagen.getAttribute("src"));
+
+             categoria = elementoActual.findElement(By.xpath("/html/body/div[1]/div[2]/div/div/div[2]/div[2]/div[3]/div[1]/div["+j+"]/article")) ;
+             System.out.println(j+" Categoria: "+ categoria.getAttribute("data-category"));
+             j++;
+         }
      }
 
 }
