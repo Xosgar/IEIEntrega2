@@ -12,13 +12,13 @@ import java.util.Set;
 public class PCComponet {
 
      public static void main(String[] args) {
-        Chrome("Iphone");
+        Chrome("Apple", "Iphone");
     }
 
     private static WebDriver driver= null;
 
 
-     public static void Chrome(String nombre){
+     public static void Chrome(String marca, String modelo){
          String exePath = "chromedriver/chromedriver.exe";
          System.setProperty("webdriver.chrome.driver", exePath);
          ChromeOptions options = new ChromeOptions();
@@ -30,46 +30,35 @@ public class PCComponet {
          waitForPageLoaded();
 
 
+         WebElement cookies = driver.findElement(By.xpath("//button[contains(text(),'ACEPTAR')]"));
+         cookies.click();
+
 
         /* WebDriverWait waiting = new WebDriverWait(driver, 10);
          waiting.until( ExpectedConditions
                  .presenceOfElementLocated( By.className("notification-cookies")));
-
-         WebElement ventanaCookies = driver.findElement(By.className("notification-cookies"));
-         ventanaCookies.findElement(By.className("btn btn-block btn-primary  btn-lg m-t-1 accept-cookie")).click();
 */
          WebElement cajaBusqueda = driver.findElement(By.xpath("/html/body/header/div[3]/div[1]/div/div[2]/div/form/input"));
 
          //el sendKey va a venir del parametro de la interfaz en el imput
-                cajaBusqueda.sendKeys(nombre+ Keys.ENTER);
+         cajaBusqueda.sendKeys(modelo+ Keys.ENTER);
                 //cajaBusqueda.sendKeys(Keys.ENTER);
       /*   WebDriverWait waiting ;
          waiting= new WebDriverWait(driver, 10);
          waiting.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("div.acc-block-title:nth-child(9) > a:nth-child(1)")));
-
-        WebElement openFiltroSmartPhone =
-                driver.findElement(By.cssSelector("div.acc-block-title:nth-child(9) > a:nth-child(1)"));
-        openFiltroSmartPhone.click();
-
-         WebElement selectFiltroSmartPhone =
-                 driver.findElement(By.cssSelector("#acc-fil-538 > div:nth-child(1) > ul:nth-child(1) > li:nth-child(1) > a:nth-child(1)"));
-         selectFiltroSmartPhone.click();
-
-         //Esto viene de starckOverflow para realizar la apertura de la parte de la izquierda, esta sin completar
-         WebDriverWait wait = new WebDriverWait(driver, 10);
-
-//Find frame or iframe and switch
-         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt("iframe-applicationname_ModalDialog_0"));
-
-//Now find the element
-         WebElement el = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(".//span[@class = 'middle' and contains(text(), 'Next')]")));
-
-//Now click using JavascriptExecutor
-         ((JavascriptExecutor)driver).executeScript("arguments[0].click()" + el);
-
-//Once all your stuff done with this frame need to switch back to default
-         driver.switchTo().defaultContent();
 */
+        waitForPageLoaded();
+
+
+
+         WebElement departamento = driver.findElement(By.xpath("//b[contains(text(),'Smartphones/Gps')]"));
+         departamento.click();
+         waitForPageLoaded();
+
+         WebElement categoria = driver.findElement(By.xpath("//a[contains(text(),'Smartphone/Móviles')]"));
+         categoria.click();
+         waitForPageLoaded();
+
 
      // /html/body/div/a/svg
          List<WebElement> listaElementos =
@@ -88,7 +77,7 @@ public class PCComponet {
          System.out.println(listaElementos.size());
 */
            // Hay que buscar la forma de cerrar las cookies y la pestaña de suscripcion que aparece y la de blockear notificaciones
-         WebElement elementoActual, nombreProducto, precio,descuento,imagen,categoria,marca;
+         WebElement elementoActual, nombreProducto, precio,descuento,imagen/*,categoria,marca*/;
          String nombreP,precioP,descuentoP,imagenP,categoriaP,marcaP;
          int j=1;
          for (int i=0; i<listaElementos.size(); i++)
@@ -113,13 +102,13 @@ public class PCComponet {
                          .findElement(By.xpath("/html/body/div[1]/div[2]/div/div/div[2]/div[2]/div[3]/div[1]/div["+j+"]/article/div[1]/div[1]/img"));
                  imagenP = imagen.getAttribute("src");
 
-                 categoria = elementoActual.findElement(By.xpath("/html/body/div[1]/div[2]/div/div/div[2]/div[2]/div[3]/div[1]/div["+j+"]/article")) ;
-                 categoriaP= categoria.getAttribute("data-category");
+                 /*categoria = elementoActual.findElement(By.xpath("/html/body/div[1]/div[2]/div/div/div[2]/div[2]/div[3]/div[1]/div["+j+"]/article")) ;
+                 categoriaP= categoria.getAttribute("data-category");*/
 
-                 marca = elementoActual.findElement(By.xpath("/html/body/div[1]/div[2]/div/div/div[2]/div[2]/div[3]/div[1]/div["+j+"]/article/div[1]/a"));
-                 marcaP = marca.getAttribute("data-brand");
+                 /*marca = elementoActual.findElement(By.xpath("/html/body/div[1]/div[2]/div/div/div[2]/div[2]/div[3]/div[1]/div["+j+"]/article/div[1]/a"));
+                 marcaP = marca.getAttribute("data-brand");*/
 
-                 Movil movilActual = new Movil(nombreP,precioP,descuentoP,imagenP,marcaP);
+                 Movil movilActual = new Movil(nombreP,precioP,descuentoP,imagenP,marca);
 
                  System.out.println(movilActual.toString());
              }catch (Exception err){
@@ -137,13 +126,13 @@ public class PCComponet {
                          .findElement(By.xpath("/html/body/div[1]/div[2]/div/div/div[2]/div[2]/div[3]/div[1]/div["+j+"]/article/div[1]/div[1]/img"));
                  imagenP = imagen.getAttribute("src");
 
-                 categoria = elementoActual.findElement(By.xpath("/html/body/div[1]/div[2]/div/div/div[2]/div[2]/div[3]/div[1]/div["+j+"]/article")) ;
-                 categoriaP= categoria.getAttribute("data-category");
+                 /*categoria = elementoActual.findElement(By.xpath("/html/body/div[1]/div[2]/div/div/div[2]/div[2]/div[3]/div[1]/div["+j+"]/article")) ;
+                 categoriaP= categoria.getAttribute("data-category");*/
 
-                 marca = elementoActual.findElement(By.xpath("/html/body/div[1]/div[2]/div/div/div[2]/div[2]/div[3]/div[1]/div["+j+"]/article/div[1]/a"));
-                 marcaP = marca.getAttribute("data-brand");
+                 /*marca = elementoActual.findElement(By.xpath("/html/body/div[1]/div[2]/div/div/div[2]/div[2]/div[3]/div[1]/div["+j+"]/article/div[1]/a"));
+                 marcaP = marca.getAttribute("data-brand");*/
 
-                 Movil movilActual = new Movil(nombreP,precioP,imagenP,marcaP);
+                 Movil movilActual = new Movil(nombreP,precioP,imagenP,marca);
 
                  System.out.println(movilActual.toString());
              }
