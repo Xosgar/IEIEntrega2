@@ -15,7 +15,7 @@ import java.util.List;
 public class Amazon {
 
     public static void main(String[] args ){
-        Chrome("Apple", "iPhone");
+        Chrome("Lenovo", "");
     }
     private static WebDriver driver= null;
 
@@ -40,8 +40,13 @@ public class Amazon {
 
         WebElement cajaBusqueda = driver.findElement(By.xpath("//*[@id=\"twotabsearchtextbox\"]"));
         //el sendKey va a venir del parametro de la interfaz en el imput
-        cajaBusqueda.sendKeys(modelo + " " + marca + Keys.ENTER);
-        waitForPageLoaded();
+        if(marca == "Lenovo") {
+            cajaBusqueda.sendKeys(modelo + " " + marca + " Movil" + Keys.ENTER);
+            waitForPageLoaded();
+        }else{
+            cajaBusqueda.sendKeys(modelo + " " + marca + Keys.ENTER);
+            waitForPageLoaded();
+        }
 
         WebElement departamento = driver.findElement(By.xpath("//span[contains(@class,'a-size-base a-color-base') and contains(text(),'Móviles y smartphones libres')]"));
         departamento.click();
