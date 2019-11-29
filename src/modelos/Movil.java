@@ -94,7 +94,7 @@ public class Movil {
     @Override
     public String toString() {
         return nombre +
-                " Precio: " + precioActual  +
+                " Precio: " + precioActual.replace("€","")+" €"  +
                 " Descuento: " + this.Descuento() + " %"
                 ;
     }
