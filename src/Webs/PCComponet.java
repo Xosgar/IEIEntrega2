@@ -45,7 +45,7 @@ public class PCComponet {
          WebElement cajaBusqueda = driver.findElement(By.xpath("/html/body/header/div[3]/div[1]/div/div[2]/div/form/input"));
 
          //el sendKey va a venir del parametro de la interfaz en el imput
-         cajaBusqueda.sendKeys(modelo+ Keys.ENTER);
+         cajaBusqueda.sendKeys(modelo + " " + marca + Keys.ENTER);
                 //cajaBusqueda.sendKeys(Keys.ENTER);
       /*   WebDriverWait waiting ;
          waiting= new WebDriverWait(driver, 10);

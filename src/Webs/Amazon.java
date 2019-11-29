@@ -15,7 +15,7 @@ import java.util.List;
 public class Amazon {
 
     public static void main(String[] args ){
-        Chrome("Samsung", "s8");
+        Chrome("Apple", "iPhone");
     }
     private static WebDriver driver= null;
 
@@ -40,7 +40,7 @@ public class Amazon {
 
         WebElement cajaBusqueda = driver.findElement(By.xpath("//*[@id=\"twotabsearchtextbox\"]"));
         //el sendKey va a venir del parametro de la interfaz en el imput
-        cajaBusqueda.sendKeys(modelo + Keys.ENTER);
+        cajaBusqueda.sendKeys(modelo + " " + marca + Keys.ENTER);
         waitForPageLoaded();
 
         WebElement departamento = driver.findElement(By.xpath("//span[contains(@class,'a-size-base a-color-base') and contains(text(),'Móviles y smartphones libres')]"));
@@ -104,7 +104,7 @@ public class Amazon {
                         Movil movilActual = new Movil(nombreP, precioP, imagenP, marca);
                         res.add(movilActual);
                         System.out.println(movilActual.toString());
-                    }catch(Exception imposible) {System.out.println("Imposible obtener precio. Siguiente elemento:");};
+                    }catch(Exception imposible) {System.out.println("No disponible. Siguiente elemento:");};
                 }
 
             }catch (Exception noPatrocinado){
@@ -150,7 +150,20 @@ public class Amazon {
                         Movil movilActual = new Movil(nombreP, precioP, imagenP, marca);
                         res.add(movilActual);
                         System.out.println(movilActual.toString());
-                    }catch(Exception impossible) {System.out.println("Imposible obtener precio. Siguiente elemento:");};
+                    }catch(Exception masOpcionesCompra) {
+                        try {
+                            precio = elementoActual.findElement(By.xpath("/html/body/div[1]/div[1]/div[1]/div[2]/div/span[4]/div[1]/div[" +
+                                    j + "]/div/span/div/div/div[2]/div[2]/div/div[2]/div[1]/div/div/div/span[2]"));
+
+                            precioP = precio.getText();
+                            imagen = elementoActual.findElement(By.xpath("/html/body/div[1]/div[1]/div[1]/div[2]/div/span[4]/div[1]/div[" +
+                                    j + "]/div/span/div/div/div[2]/div[1]/div/div/span/a/div/img"));
+                            imagenP = imagen.getAttribute("src");
+                            Movil movilActual = new Movil(nombreP, precioP, imagenP, marca);
+                            res.add(movilActual);
+                            System.out.println(movilActual.toString());
+                        }catch(Exception impossible) {System.out.println("No disponible. Siguiente elemento:");};
+                    };
                 }
 
             }
