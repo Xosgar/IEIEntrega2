@@ -14,7 +14,7 @@ import java.util.List;
 public class Fnac {
 //da una exxecpcion en el elemento 10 pero no se porque, no veo el fallo de ese elemento
     public static void main(String[] args ){
-    Chrome("Apple", "Iphone");
+    Chrome("Apple", "iPhone");
     }
     private static WebDriver driver= null;
 
