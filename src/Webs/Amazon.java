@@ -15,7 +15,7 @@ import java.util.List;
 public class Amazon {
 
     public static void main(String[] args ){
-        Chrome("Apple", "iPhone");
+        Chrome("Samsung", "s8");
     }
     private static WebDriver driver= null;
 
@@ -51,9 +51,11 @@ public class Amazon {
         filtroMarca.click();
         waitForPageLoaded();
 
-        WebElement tiendaAmazon = driver.findElement(By.xpath("//span[contains(@class,'a-size-base a-color-base') and contains(text(),'Amazon.es')]"));
-        tiendaAmazon.click();
-        waitForPageLoaded();
+        if(marca!="Samsung") {
+            WebElement tiendaAmazon = driver.findElement(By.xpath("//span[contains(@class,'a-size-base a-color-base') and contains(text(),'Amazon.es')]"));
+            tiendaAmazon.click();
+            waitForPageLoaded();
+        }
 
         //<span class="a-size-base a-color-base">Móviles y smartphones libres</span>
         List<WebElement> listaElementos =
@@ -89,17 +91,21 @@ public class Amazon {
 
                     System.out.println(movilActual.toString());
                 }catch(Exception patrocinadoSinDescuento) {
-                    precio = elementoActual.findElement(By.xpath("/html/body/div[1]/div[1]/div[1]/div[2]/div/span[4]/div[1]/div["
-                        + j + "]/div/span/div/div/div/div/div[2]/div[2]/div/div[2]/div[1]/div/div[1]/div/div/a/span[1]/span[2]/span[1]"));
-                    precioP = precio.getText();
+                    try {
+                        precio = elementoActual.findElement(By.xpath("/html/body/div[1]/div[1]/div[1]/div[2]/div/span[4]/div[1]/div["
+                                + j + "]/div/span/div/div/div/div/div[2]/div[2]/div/div[2]/div[1]/div/div[1]/div/div/a/span[1]/span[2]/span[1]"));
 
-                    imagen = elementoActual.findElement(By.xpath("/html/body/div[1]/div[1]/div[1]/div[2]/div/span[4]/div[1]/div[" +
-                            j + "]/div/span/div/div/div/div/div[2]/div[1]/div/div/span/a/div/img"));
-                    imagenP = imagen.getAttribute("src");
+                        precioP = precio.getText();
 
-                    Movil movilActual = new Movil(nombreP,precioP,imagenP, marca);
-                    res.add(movilActual);
-                    System.out.println(movilActual.toString());}
+                        imagen = elementoActual.findElement(By.xpath("/html/body/div[1]/div[1]/div[1]/div[2]/div/span[4]/div[1]/div[" +
+                                j + "]/div/span/div/div/div/div/div[2]/div[1]/div/div/span/a/div/img"));
+                        imagenP = imagen.getAttribute("src");
+
+                        Movil movilActual = new Movil(nombreP, precioP, imagenP, marca);
+                        res.add(movilActual);
+                        System.out.println(movilActual.toString());
+                    }catch(Exception imposible) {System.out.println("Imposible obtener precio. Siguiente elemento:");};
+                }
 
             }catch (Exception noPatrocinado){
                 nombreProducto = elementoActual.findElement(By.xpath("/html/body/div[1]/div[1]/div[1]/div[2]/div/span[4]/div[1]/div[" +
@@ -130,24 +136,21 @@ public class Amazon {
                     res.add(movilActual);
                     System.out.println(movilActual.toString());
                 }catch(Exception noPatrocinadoSinDescuento) {
-                    //COPIAR LO DE ARRIBA EXCEPTO DESCUENTO, Y QUITANDO descuentoP
-                    precio = elementoActual.findElement(By.xpath("/html/body/div[1]/div[1]/div[1]/div[2]/div/span[4]/div[1]/div["
-                            + j + "]/div/span/div/div/div[2]/div[2]/div/div[2]/div[1]/div/div[1]/div/div/a/span/span[2]/span[1]"));
-                    precioP = precio.getText();
-                    //System.out.println("precio sin descuento normal bien");
-                    imagen = elementoActual.findElement(By.xpath("/html/body/div[1]/div[1]/div[1]/div[2]/div/span[4]/div[1]/div[" +
-                            j + "]/div/span/div/div/div[2]/div[1]/div/div/span/a/div/img"));
-                    imagenP = imagen.getAttribute("src");
-                    //System.out.println("imagen sin descuento normal bien");
-                /*categoria = elementoActual.findElement(By.xpath("/html/body/div[1]/div[2]/div/div/div[2]/div[2]/div[3]/div[1]/div["+j+"]/article")) ;
-                categoriaP= categoria.getAttribute("data-category");*/
+                    try {
+                        precio = elementoActual.findElement(By.xpath("/html/body/div[1]/div[1]/div[1]/div[2]/div/span[4]/div[1]/div["
+                                + j + "]/div/span/div/div/div[2]/div[2]/div/div[2]/div[1]/div/div[1]/div/div/a/span/span[2]/span[1]"));
 
-                /*marca = elementoActual.findElement(By.xpath("/html/body/div[1]/div[2]/div/div/div[2]/div[2]/div[3]/div[1]/div["+j+"]/article/div[1]/a"));
-                marcaP = marca.getAttribute("data-brand");*/
+                        precioP = precio.getText();
+                        //System.out.println("precio sin descuento normal bien");
+                        imagen = elementoActual.findElement(By.xpath("/html/body/div[1]/div[1]/div[1]/div[2]/div/span[4]/div[1]/div[" +
+                                j + "]/div/span/div/div/div[2]/div[1]/div/div/span/a/div/img"));
+                        imagenP = imagen.getAttribute("src");
+                        //System.out.println("imagen sin descuento normal bien");
 
-                    Movil movilActual = new Movil(nombreP,precioP,imagenP, marca);
-                    res.add(movilActual);
-                    System.out.println(movilActual.toString());
+                        Movil movilActual = new Movil(nombreP, precioP, imagenP, marca);
+                        res.add(movilActual);
+                        System.out.println(movilActual.toString());
+                    }catch(Exception impossible) {System.out.println("Imposible obtener precio. Siguiente elemento:");};
                 }
 
             }
