@@ -1,3 +1,5 @@
+package Webs;
+
 import modelos.Movil;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -20,6 +22,7 @@ public class PCComponet {
 
 
      public static List<Movil> Chrome(String marca, String modelo){
+         List<Movil> res = new ArrayList<Movil>();
          String exePath = "chromedriver/chromedriver.exe";
          System.setProperty("webdriver.chrome.driver", exePath);
          ChromeOptions options = new ChromeOptions();
@@ -80,7 +83,6 @@ public class PCComponet {
            // Hay que buscar la forma de cerrar las cookies y la pestaña de suscripcion que aparece y la de blockear notificaciones
          WebElement elementoActual, nombreProducto, precio,descuento,imagen/*,categoria,marca*/;
          String nombreP,precioP,descuentoP,imagenP,categoriaP,marcaP;
-         List<Movil> listaMoviles = new ArrayList<>();
          int j=1;
          for (int i=0; i<listaElementos.size(); i++)
          {
@@ -111,8 +113,7 @@ public class PCComponet {
                  marcaP = marca.getAttribute("data-brand");*/
 
                  Movil movilActual = new Movil(nombreP,precioP,descuentoP,imagenP,marca);
-                 listaMoviles.add(movilActual);
-
+                 res.add(movilActual);
                  System.out.println(movilActual.toString());
              }catch (Exception err){
                  nombreProducto =
@@ -136,15 +137,14 @@ public class PCComponet {
                  marcaP = marca.getAttribute("data-brand");*/
 
                  Movil movilActual = new Movil(nombreP,precioP,imagenP,marca);
-                 listaMoviles.add(movilActual);
+                 res.add(movilActual);
                  System.out.println(movilActual.toString());
              }
              j++;
          }
 
+         return res;
 
-           // Hay que buscar la forma de cerrar las cookies y la pestaña de suscripcion que aparece
-        return listaMoviles;
      }
 
     public static void waitForPageLoaded() {
