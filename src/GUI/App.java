@@ -5,6 +5,7 @@ import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
 import com.sun.org.apache.xpath.internal.functions.FuncFalse;
+import modelos.ListaMoviles;
 import modelos.Movil;
 import Webs.*;
 
@@ -25,32 +26,44 @@ public class App {
     private JRadioButton btn_PCComp;
     private JRadioButton btn_Fnac;
     private JButton btn_Buscar;
+    private JList list1;
+    private JList list2;
+    private JList list3;
 
 
     public App() {
         btn_Buscar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 //llamar la clase controladora
                 if (btn_Amazon.isSelected()) {
-                    List<Movil> listaAmazon;
+                    ListaMoviles listaAmazon;
                     Amazon a = new Amazon();
-                    listaAmazon = a.Chrome(Marca.getSelectedItem().toString(), Modelo.getText());
+                    listaAmazon = new ListaMoviles(a.Chrome(Marca.getSelectedItem().toString(), Modelo.getText()));
+                    list1.setModel(listaAmazon);
+
                 }
 
                 if (btn_Fnac.isSelected()) {
-                    List<Movil> listaFnac;
+                    ListaMoviles listaFnac;
                     Fnac f = new Fnac();
-                    listaFnac = f.Chrome(Marca.getSelectedItem().toString(), Modelo.getText());
+                    listaFnac = new ListaMoviles(f.Chrome(Marca.getSelectedItem().toString(), Modelo.getText()));
+                    list2.setModel(listaFnac);
+
                 }
 
                 if (btn_PCComp.isSelected()) {
-                    List<Movil> listaPCComp;
+                    ListaMoviles listaPCComp;
                     PCComponet p = new PCComponet();
-                    listaPCComp = p.Chrome(Marca.getSelectedItem().toString(), Modelo.getText());
+                    listaPCComp = new ListaMoviles(p.Chrome(Marca.getSelectedItem().toString(), Modelo.getText()));
+                    list3.setModel(listaPCComp);
+
+
                 }
 
                 //HACER UNA TABLA O ALGO ASÍ CON listaAmazon, listaFnac y listaPCComp
+
 
             }
         });
@@ -123,9 +136,13 @@ public class App {
     }
 
 
-    private void createUIComponents() {
+    private void createUIComponents(List<Movil> listaAmazon, List<Movil> listaFnac, List<Movil> listaPcComponents) {
         // TODO: place custom component creation code here
         btn_Buscar.setEnabled(false);
+    }
+
+    {
+
     }
 
     {
@@ -144,14 +161,12 @@ public class App {
      */
     private void $$$setupUI$$$() {
         panelMain = new JPanel();
-        panelMain.setLayout(new GridLayoutManager(8, 3, new Insets(0, 0, 0, 0), -1, -1));
+        panelMain.setLayout(new GridLayoutManager(8, 5, new Insets(0, 0, 0, 0), -1, -1));
         panelMain.setAlignmentX(1.0f);
         panelMain.setAlignmentY(1.0f);
         panelMain.setBackground(new Color(-2699061));
         panelMain.setMinimumSize(new Dimension(408, 499));
         panelMain.setPreferredSize(new Dimension(308, 399));
-        final Spacer spacer1 = new Spacer();
-        panelMain.add(spacer1, new GridConstraints(7, 1, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
         Marca = new JComboBox();
         final DefaultComboBoxModel defaultComboBoxModel1 = new DefaultComboBoxModel();
         defaultComboBoxModel1.addElement("Samsung");
@@ -188,10 +203,22 @@ public class App {
         label2.setForeground(new Color(-16777216));
         label2.setText("Modelo:");
         panelMain.add(label2, new GridConstraints(1, 0, 2, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        final Spacer spacer1 = new Spacer();
+        panelMain.add(spacer1, new GridConstraints(6, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
         final Spacer spacer2 = new Spacer();
-        panelMain.add(spacer2, new GridConstraints(6, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
-        final Spacer spacer3 = new Spacer();
-        panelMain.add(spacer3, new GridConstraints(2, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
+        panelMain.add(spacer2, new GridConstraints(2, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
+        final JScrollPane scrollPane1 = new JScrollPane();
+        panelMain.add(scrollPane1, new GridConstraints(7, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        list1 = new JList();
+        scrollPane1.setViewportView(list1);
+        final JScrollPane scrollPane2 = new JScrollPane();
+        panelMain.add(scrollPane2, new GridConstraints(7, 3, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        list2 = new JList();
+        scrollPane2.setViewportView(list2);
+        final JScrollPane scrollPane3 = new JScrollPane();
+        panelMain.add(scrollPane3, new GridConstraints(7, 4, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        list3 = new JList();
+        scrollPane3.setViewportView(list3);
     }
 
     /**
@@ -201,4 +228,7 @@ public class App {
         return panelMain;
     }
 
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
+    }
 }

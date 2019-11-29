@@ -65,6 +65,16 @@ public class Movil {
         this.marca = marca;
     }
 
+    public Double Descuento(){
+        String nuevoPrecio = this.getPrecioActual().replace(".","");
+        String nuevoPrecio3 = this.getPrecioAntesDescuento().replace(".","");
+        String nuevoPrecio2 = nuevoPrecio.replace(",",".");
+        String nuevoPrecio4 = nuevoPrecio3.replace(",",".");
+        Double aux1 = new Double(nuevoPrecio2);
+        Double aux2 = new Double(nuevoPrecio4);
+        return  (aux1)/(aux2)*100;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -81,12 +91,9 @@ public class Movil {
 
     @Override
     public String toString() {
-        return "Movil{" +
-                "nombre='" + nombre + '\'' +
-                ", precioActual='" + precioActual + '\'' +
-                ", precioAntesDescuento='" + precioAntesDescuento + '\'' +
-                ", urlImagen='" + urlImagen + '\'' +
-                ", marca='" + marca + '\'' +
-                '}';
+        return nombre +
+                " Precio: " + precioActual  +
+                " Descuento: " + this.Descuento() + " %"
+                ;
     }
 }
