@@ -1,3 +1,5 @@
+package Webs;
+
 import modelos.Movil;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -6,6 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -18,7 +21,8 @@ public class PCComponet {
     private static WebDriver driver= null;
 
 
-     public static void Chrome(String marca, String modelo){
+     public static List<Movil> Chrome(String marca, String modelo){
+         List<Movil> res = new ArrayList<Movil>();
          String exePath = "chromedriver/chromedriver.exe";
          System.setProperty("webdriver.chrome.driver", exePath);
          ChromeOptions options = new ChromeOptions();
@@ -109,7 +113,7 @@ public class PCComponet {
                  marcaP = marca.getAttribute("data-brand");*/
 
                  Movil movilActual = new Movil(nombreP,precioP,descuentoP,imagenP,marca);
-
+                 res.add(movilActual);
                  System.out.println(movilActual.toString());
              }catch (Exception err){
                  nombreProducto =
@@ -133,14 +137,13 @@ public class PCComponet {
                  marcaP = marca.getAttribute("data-brand");*/
 
                  Movil movilActual = new Movil(nombreP,precioP,imagenP,marca);
-
+                 res.add(movilActual);
                  System.out.println(movilActual.toString());
              }
              j++;
          }
 
-
-           // Hay que buscar la forma de cerrar las cookies y la pestaña de suscripcion que aparece
+         return res;
 
      }
 
