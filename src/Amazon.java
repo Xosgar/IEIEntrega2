@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Amazon {
@@ -16,7 +17,7 @@ public class Amazon {
     }
     private static WebDriver driver= null;
 
-    public static void Chrome(String marca, String modelo){
+    public static List<Movil> Chrome(String marca, String modelo){
         String exePath = "chromedriver/chromedriver.exe";
         System.setProperty("webdriver.chrome.driver", exePath);
         ChromeOptions options = new ChromeOptions();
@@ -60,6 +61,7 @@ public class Amazon {
 
         WebElement elementoActual, nombreProducto, precio,descuento,imagen/*,categoria, marca*/;
         String nombreP,precioP,descuentoP,imagenP,categoriaP,marcaP;
+        List<Movil> listaMoviles = new ArrayList<>();
         int j=1;
         for (int i=0; i<listaElementos.size(); i++)
         {
@@ -81,7 +83,7 @@ public class Amazon {
                     imagenP = imagen.getAttribute("src");
 
                     Movil movilActual = new Movil(nombreP,precioP,descuentoP,imagenP,marca);
-
+                    listaMoviles.add(movilActual);
                     System.out.println(movilActual.toString());
                 }catch(Exception patrocinadoSinDescuento) {
                     precio = elementoActual.findElement(By.xpath("/html/body/div[1]/div[1]/div[1]/div[2]/div/span[4]/div[1]/div["
@@ -93,7 +95,7 @@ public class Amazon {
                     imagenP = imagen.getAttribute("src");
 
                     Movil movilActual = new Movil(nombreP,precioP,imagenP, marca);
-
+                    listaMoviles.add(movilActual);
                     System.out.println(movilActual.toString());}
 
             }catch (Exception noPatrocinado){
@@ -122,7 +124,7 @@ public class Amazon {
                 marcaP = marca.getAttribute("data-brand");*/
 
                     Movil movilActual = new Movil(nombreP,precioP,descuentoP,imagenP, marca);
-
+                    listaMoviles.add(movilActual);
                     System.out.println(movilActual.toString());
                 }catch(Exception noPatrocinadoSinDescuento) {
                     //COPIAR LO DE ARRIBA EXCEPTO DESCUENTO, Y QUITANDO descuentoP
@@ -141,7 +143,7 @@ public class Amazon {
                 marcaP = marca.getAttribute("data-brand");*/
 
                     Movil movilActual = new Movil(nombreP,precioP,imagenP, marca);
-
+                    listaMoviles.add(movilActual);
                     System.out.println(movilActual.toString());
                 }
 
@@ -149,6 +151,7 @@ public class Amazon {
 
             j++;
         }
+        return listaMoviles;
 
     }
 

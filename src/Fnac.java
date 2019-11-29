@@ -6,6 +6,7 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Fnac {
@@ -15,7 +16,7 @@ public class Fnac {
     }
     private static WebDriver driver= null;
 
-    public static void Chrome(String marca, String modelo){
+    public static List<Movil> Chrome(String marca, String modelo){
         String exePath = "chromedriver/chromedriver.exe";
         System.setProperty("webdriver.chrome.driver", exePath);
         ChromeOptions options = new ChromeOptions();
@@ -51,6 +52,7 @@ public class Fnac {
 
         WebElement elementoActual, nombreProducto, precio,descuento,imagen/*,categoria,marca*/;
         String nombreP,precioP,descuentoP,imagenP,categoriaP,marcaP;
+        List<Movil> listaMoviles = new ArrayList<>();
         int j=1;
         for (int i=0; i<listaElementos.size(); i++)
         {
@@ -67,7 +69,7 @@ public class Fnac {
                 precioP = precio.getText();
 
                 Movil movilActual = new Movil(nombreP,precioP,imagenP,marca);
-
+                listaMoviles.add(movilActual);
                 System.out.println(movilActual.toString());
             }catch(Exception noSocio) {
                 try{
@@ -79,11 +81,11 @@ public class Fnac {
                     descuentoP = descuento.getText();
 
                     Movil movilActual = new Movil(nombreP,precioP,descuentoP,imagenP,marca);
-
+                        listaMoviles.add(movilActual);
                     System.out.println(movilActual.toString());
                     }catch(Exception noSocioNoDescuento) {
                         Movil movilActual = new Movil(nombreP,precioP,imagenP,marca);
-
+                        listaMoviles.add(movilActual);
                         System.out.println(movilActual.toString());
                     }
 
@@ -98,11 +100,11 @@ public class Fnac {
                             descuentoP = descuento.getText();
 
                             Movil movilActual = new Movil(nombreP, precioP, descuentoP, imagenP, marca);
-
+                            listaMoviles.add(movilActual);
                             System.out.println(movilActual.toString());
                         }catch(Exception tipo2NoDescuento) {
                             Movil movilActual = new Movil(nombreP,precioP,imagenP,marca);
-
+                            listaMoviles.add(movilActual);
                             System.out.println(movilActual.toString());
                         }
                     }catch(Exception tipo1) {
@@ -115,11 +117,11 @@ public class Fnac {
                             descuentoP = descuento.getText();
 
                             Movil movilActual = new Movil(nombreP, precioP, descuentoP, imagenP, marca);
-
+                            listaMoviles.add(movilActual);
                             System.out.println(movilActual.toString());
                         }catch(Exception tipo1NoDescuento) {
                             Movil movilActual = new Movil(nombreP,precioP,imagenP,marca);
-
+                            listaMoviles.add(movilActual);
                             System.out.println(movilActual.toString());
                         }
                     }
@@ -171,7 +173,7 @@ public class Fnac {
 
             j++;
         }
-
+        return listaMoviles;
 
     }
 
