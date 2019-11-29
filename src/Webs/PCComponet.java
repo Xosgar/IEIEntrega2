@@ -15,7 +15,7 @@ import java.util.Set;
 public class PCComponet {
 
      public static void main(String[] args) {
-        Chrome("ONEPLUS", "6");
+        Chrome("Apple", "iPhone 11");
     }
 
     private static WebDriver driver= null;
@@ -56,7 +56,7 @@ public class PCComponet {
 
 
          WebElement departamento = driver.findElement(By.xpath("//b[contains(text(),'Smartphones/Gps')]"));
-         if(departamento.getAttribute("aria-expanded") == "false") {
+         if(!driver.findElement(By.xpath("//a[contains(text(),'Smartphone/Móviles')]")).isDisplayed()) {
              departamento.click();
              waitForPageLoaded();
          }

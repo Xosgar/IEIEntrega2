@@ -40,13 +40,13 @@ public class Amazon {
 
         WebElement cajaBusqueda = driver.findElement(By.xpath("//*[@id=\"twotabsearchtextbox\"]"));
         //el sendKey va a venir del parametro de la interfaz en el imput
-        if(marca == "Lenovo") {
+        /*if(marca == "Lenovo") {*/
             cajaBusqueda.sendKeys(modelo + " " + marca + " Movil" + Keys.ENTER);
             waitForPageLoaded();
-        }else{
+       /* }else{
             cajaBusqueda.sendKeys(modelo + " " + marca + Keys.ENTER);
             waitForPageLoaded();
-        }
+        }*/
 
         WebElement departamento = driver.findElement(By.xpath("//span[contains(@class,'a-size-base a-color-base') and contains(text(),'Móviles y smartphones libres')]"));
         departamento.click();
