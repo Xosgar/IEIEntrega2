@@ -66,13 +66,15 @@ public class Movil {
     }
 
     public Double Descuento(){
-        String nuevoPrecio = this.getPrecioActual().replace(".","");
-        String nuevoPrecio3 = this.getPrecioAntesDescuento().replace(".","");
+        Double res;
+        String nuevoPrecio = this.getPrecioActual().replace(".","").replace("€","");
+        String nuevoPrecio3 = this.getPrecioAntesDescuento().replace(".","").replace("€","");
         String nuevoPrecio2 = nuevoPrecio.replace(",",".");
         String nuevoPrecio4 = nuevoPrecio3.replace(",",".");
         Double aux1 = new Double(nuevoPrecio2);
         Double aux2 = new Double(nuevoPrecio4);
-        return  (aux1)/(aux2)*100;
+        res = ((1-((aux1)/(aux2)))*100);
+        return  Math.floor(res);
     }
 
     @Override
