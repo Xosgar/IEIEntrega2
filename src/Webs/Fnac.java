@@ -30,7 +30,7 @@ public class Fnac {
 
         WebElement cajaBusqueda = driver.findElement(By.xpath("//*[@id=\"Fnac_Search\"]"));
         //el sendKey va a venir del parametro de la interfaz en el imput
-        cajaBusqueda.sendKeys(modelo+ Keys.ENTER);
+        cajaBusqueda.sendKeys(modelo + " " + marca + Keys.ENTER);
         waitForPageLoaded();
 
         WebElement departamento = driver.findElement(By.xpath("//span[contains(@class,'Affine-link lienInverse') and contains(text(),'Tecnología')]"));
