@@ -55,12 +55,14 @@ public class Amazon {
         WebElement filtroMarca = driver.findElement(By.xpath("//span[contains(@class,'a-size-base a-color-base') and contains(text(),'" + marca + "')]"));
         filtroMarca.click();
         waitForPageLoaded();
-
+/*
         if(marca!="Samsung") {
             WebElement tiendaAmazon = driver.findElement(By.xpath("//span[contains(@class,'a-size-base a-color-base') and contains(text(),'Amazon.es')]"));
             tiendaAmazon.click();
             waitForPageLoaded();
         }
+*/
+
 
         //<span class="a-size-base a-color-base">Móviles y smartphones libres</span>
         List<WebElement> listaElementos =

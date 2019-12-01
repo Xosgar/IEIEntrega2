@@ -75,8 +75,7 @@ public class App {
             @Override
             public void keyTyped(KeyEvent e) {
                 super.keyTyped(e);
-                if ((Modelo.getText().length() > 0) &&
-                        (btn_Amazon.isSelected() || btn_PCComp.isSelected() || btn_Fnac.isSelected())) {
+                if (btn_Amazon.isSelected() || btn_PCComp.isSelected() || btn_Fnac.isSelected()) {
                     btn_Buscar.setEnabled(true);
 
                 } else {
@@ -90,8 +89,7 @@ public class App {
         btn_Amazon.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if ((Modelo.getText().length() > 0) &&
-                        (btn_Amazon.isSelected() || btn_PCComp.isSelected() || btn_Fnac.isSelected())) {
+                if (btn_Amazon.isSelected() || btn_PCComp.isSelected() || btn_Fnac.isSelected()) {
                     btn_Buscar.setEnabled(true);
 
                 } else {
@@ -102,8 +100,7 @@ public class App {
         btn_PCComp.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if ((Modelo.getText().length() > 0) &&
-                        (btn_Amazon.isSelected() || btn_PCComp.isSelected() || btn_Fnac.isSelected())) {
+                if (btn_Amazon.isSelected() || btn_PCComp.isSelected() || btn_Fnac.isSelected()) {
                     btn_Buscar.setEnabled(true);
 
                 } else {
@@ -114,8 +111,7 @@ public class App {
         btn_Fnac.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if ((Modelo.getText().length() > 0) &&
-                        (btn_Amazon.isSelected() || btn_PCComp.isSelected() || btn_Fnac.isSelected())) {
+                if (btn_Amazon.isSelected() || btn_PCComp.isSelected() || btn_Fnac.isSelected()) {
                     btn_Buscar.setEnabled(true);
 
                 } else {
